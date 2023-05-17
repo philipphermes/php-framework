@@ -4,11 +4,15 @@ declare(strict_types=1);
 namespace App\Core;
 
 use App\Component\Error\Communication\Controller\ErrorController;
+use Dotenv\Dotenv;
 
 class Load
 {
     public function load(): void
     {
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../', '.env');
+        $dotenv->load();
+
         $dependencies = new Dependencies();
         $dependencies->create();
 
@@ -17,8 +21,7 @@ class Load
             $controllerLoader->load($dependencies);
         } catch (\Error $error) {
             $responseController = new ErrorController($dependencies->view, $dependencies->container);
-            $responseController->setErrorObj($error);
-            $responseController->setError('Internal Server Error', 505);
+            $responseController->setError($error->getMessage(), 505);
             $responseController->run([]);
         }
 

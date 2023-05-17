@@ -28,7 +28,6 @@ abstract class AbstractController implements ControllerInterface
     protected function display(): void
     {
         $this->loadParams();
-
         $this->view->display();
     }
 

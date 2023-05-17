@@ -12,6 +12,7 @@ class ControllerLoader
      */
     public function load(DependenciesInterface $dependencies): void
     {
+        //TODO fix loading
         $view = $dependencies->view;
         $container = $dependencies->container;
         $controllerProvider = $dependencies->controllerProvider;

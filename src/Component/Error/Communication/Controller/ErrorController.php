@@ -8,12 +8,7 @@ use App\Core\AbstractController;
 class ErrorController extends AbstractController
 {
     private string $error;
-    private int $response = 404;
-
-    public function setErrorObj(\Error $error): void
-    {
-        $this->error = $error->getMessage();
-    }
+    private int $response;
 
     public function setError(string $error, int $response = 404): void
     {
