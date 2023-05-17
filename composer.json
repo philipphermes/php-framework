@@ -1,0 +1,23 @@
+{
+    "name": "philipphermes/php-framework",
+    "version": "1.0.0",
+    "description": "",
+    "readme": "/README.md",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Philipp Hermes",
+            "email": "philipphermes2001@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "smarty/smarty": "^4.3"
+    }
+}
