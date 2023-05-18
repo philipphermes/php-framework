@@ -83,7 +83,7 @@ class DependencyProvider implements DependencyProviderInterface
 
 Run this to update your output.css automatically
 ```
-npx tailwindcss -i ./assets/input.css -o ./assets/output.css --watch
+npx tailwindcss -i ./assets/style/input.css -o ./assets/style/output.css --watch
 ```
 
 Clear twig cache
@@ -97,3 +97,8 @@ rm -rf twig
 * Varnames containing PATH will be changed like this
   * In env: `TWIG_TEMPLATE_PATH=/templates`
   * Changed to: `/home/user/PhpStorm/php-framework/src/Core/../../templates`
+
+## Start Server for testing
+```
+php -S localhost:8000
+```
