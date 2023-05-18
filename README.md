@@ -36,7 +36,7 @@ class Controller extends AbstractController
 }
 ```
 
-add controller to [ControllerProvider]("https://github.com/philipphermes/php-framework/blob/main/src/Provider/ControllerProvider.php")
+add controller to [ControllerProvider](https://github.com/philipphermes/php-framework/blob/main/src/Provider/ControllerProvider.php)
 
 ```php
 class ControllerProvider implements ControllerProviderInterface
