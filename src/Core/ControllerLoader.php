@@ -13,7 +13,7 @@ class ControllerLoader
     public function load(DependenciesInterface $dependencies): void
     {
         //TODO fix loading
-        $view = $dependencies->view;
+        $twig = $dependencies->twig;
         $container = $dependencies->container;
         $controllerProvider = $dependencies->controllerProvider;
 
@@ -60,16 +60,16 @@ class ControllerLoader
             }
 
             if ($pathsMatch === true) {
-                $controller = new $controllerClass($view, $container);
+                $controller = new $controllerClass($twig, $container);
                 break;
             }
         }
 
         if (!$controller instanceof ControllerInterface) {
-            $controller = new ErrorController($view, $container);
+            $controller = new ErrorController($twig, $container);
             $controller->setError('Page ' . $parsed_url .  ' not found', 404);
         }
 
-        $controller->run($slugList);
+        $controller->display($slugList);
     }
 }

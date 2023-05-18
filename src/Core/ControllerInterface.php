@@ -5,7 +5,7 @@ namespace App\Core;
 interface ControllerInterface
 {
     public function __construct(
-        ViewInterface $view,
+        TwigInterface      $twig,
         ContainerInterface $container
     );
 
@@ -13,7 +13,7 @@ interface ControllerInterface
      * @param array<string, string> $slugList
      * @return void
      */
-    public function run(array $slugList): void;
+    public function display(array $slugList): void;
 
     public static function getRoute(): string;
 }

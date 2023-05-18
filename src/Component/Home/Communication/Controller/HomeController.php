@@ -8,10 +8,10 @@ use App\Core\AbstractController;
 class HomeController extends AbstractController
 {
 
-    public function run(array $slugList): void
+    public function display(array $slugList): void
     {
         self::setTemplate('home');
-        self::display();
+        self::render();
     }
 
     public static function getRoute(): string

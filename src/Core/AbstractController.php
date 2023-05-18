@@ -6,7 +6,7 @@ namespace App\Core;
 abstract class AbstractController implements ControllerInterface
 {
     public function __construct(
-        private readonly ViewInterface $view,
+        private readonly TwigInterface $twig,
         public ContainerInterface      $container
     )
     {
@@ -25,25 +25,25 @@ abstract class AbstractController implements ControllerInterface
         }
     }
 
-    protected function display(): void
+    protected function render(): void
     {
         $this->loadParams();
-        $this->view->display();
+        $this->twig->render();
     }
 
     protected function addParameter(string $key, mixed $value): void
     {
-        $this->view->addTlpParam($key, $value);
+        $this->twig->addTemplateParameter($key, $value);
     }
 
-    protected function getParameter(string $key): mixed
+    protected function getParameters(): array
     {
-        return $this->view->getTlpParam($key);
+        return $this->twig->getTemplateParameters();
     }
 
     protected function setTemplate(string $template): void
     {
-        $this->view->addTemplate($template);
+        $this->twig->setTemplate($template);
     }
 
     private function loadParams(): void

@@ -10,7 +10,7 @@ use App\Provider\DependencyProvider;
 class Dependencies implements DependenciesInterface
 {
     public \Smarty $smarty;
-    public ViewInterface $view;
+    public TwigInterface $twig;
     public ContainerInterface $container;
     public ControllerProviderInterface $controllerProvider;
 
@@ -21,7 +21,7 @@ class Dependencies implements DependenciesInterface
         }
 
         $this->smarty = new \Smarty();
-        $this->view = new View($this->smarty);
+        $this->twig = new Twig();
         $this->container = new Container();
         $this->controllerProvider = new ControllerProvider();
 

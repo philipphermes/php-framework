@@ -16,12 +16,12 @@ class ErrorController extends AbstractController
         $this->response = $response;
     }
 
-    public function run(array $slugList): void
+    public function display(array $slugList): void
     {
         $this->addParameter('response', $this->response);
         $this->addParameter('error', $this->error);
         $this->setTemplate('error');
-        $this->display();
+        $this->render();
     }
 
     public static function getRoute(): string

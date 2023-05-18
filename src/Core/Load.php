@@ -10,8 +10,7 @@ class Load
 {
     public function load(): void
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../', '.env');
-        $dotenv->load();
+        $this->loadEnvVars();
 
         $dependencies = new Dependencies();
         $dependencies->create();
@@ -20,11 +19,23 @@ class Load
             $controllerLoader = new ControllerLoader();
             $controllerLoader->load($dependencies);
         } catch (\Error $error) {
-            $responseController = new ErrorController($dependencies->view, $dependencies->container);
+            $responseController = new ErrorController($dependencies->twig, $dependencies->container);
             $responseController->setError($error->getMessage(), 505);
-            $responseController->run([]);
+            $responseController->display([]);
         }
 
         $dependencies->destroy();
+    }
+
+    private function loadEnvVars(): void
+    {
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../', '.env');
+        $vars = $dotenv->load();
+
+        foreach ($vars as $key => $var) {
+            if (str_contains($key, 'PATH')) {
+                $_ENV[$key] = __DIR__ . '/../../' . $var;
+            }
+        }
     }
 }
