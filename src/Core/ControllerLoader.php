@@ -12,64 +12,60 @@ class ControllerLoader
      */
     public function load(DependenciesInterface $dependencies): void
     {
-        //TODO fix loading
-        $twig = $dependencies->twig;
-        $container = $dependencies->container;
-        $controllerProvider = $dependencies->controllerProvider;
-
         $controller = null;
+        $parsedUrl = rtrim($_SERVER['REQUEST_URI'], '/');
 
-        $parsed_url = rtrim($_SERVER['REQUEST_URI'], '/');
-
-        if (!str_contains($parsed_url, 'login') && !str_contains($parsed_url, 'logout')) {
-            $_SESSION['last_page'] = $parsed_url;
+        if (!str_contains($parsedUrl, 'login') && !str_contains($parsedUrl, 'logout')) {
+            $_SESSION['last_page'] = $parsedUrl;
         }
 
-        $pathArray = explode('/', $parsed_url);
-        $slugList = [];
+        $urlNoGet = explode('?', $parsedUrl)[0];
+        $pathArray = explode('/', $urlNoGet);
 
         /** @var \App\Core\ControllerInterface $controllerClass */
-        foreach ($controllerProvider->getList() as $controllerClass) {
-            $controllerPathArray = explode('/', $controllerClass::getRoute());
+        foreach ($dependencies->controllerProvider->getList() as $controllerClass) {
+            $controllerPath = rtrim($controllerClass::getRoute(), '/');
+            $controllerPathArray = explode('/', $controllerPath);
+
+            if (count($controllerPathArray) !== count($pathArray)) {
+                continue;
+            }
 
             $pathsMatch = true;
             $slugList = [];
 
-            /**
-             * @var int $key
-             * @var string $path
-             */
-            foreach ($pathArray as $key => $path) {
-                if (!isset($controllerPathArray[$key])) {
+            foreach ($controllerPathArray as $key => $path) {
+                if (!isset($pathArray[$key])) {
                     $pathsMatch = false;
                     break;
                 }
 
-                $pathRemovedGet = explode('?', $path)[0];
-
-                if ($controllerPathArray[$key] === $pathRemovedGet) {
-                    continue;
-                } elseif (str_contains($controllerPathArray[$key], '{')
-                    && str_contains($controllerPathArray[$key], '}')) {
-                    $slugName = str_replace(['{', '}'], '', $controllerPathArray[$key]);
-                    $slugList[$slugName] = urldecode($pathRemovedGet);
-                } else {
+                if (str_contains($path, '{') && str_contains($path, '}')) {
+                    $slugName = str_replace(['{', '}'], '', $path);
+                    $slugList[$slugName] = urldecode($pathArray[$key]);
+                } elseif ($path !== $pathArray[$key]) {
                     $pathsMatch = false;
                     break;
                 }
             }
 
             if ($pathsMatch === true) {
-                $controller = new $controllerClass($twig, $container);
+                $controller = new $controllerClass(
+                    $dependencies->twig,
+                    $dependencies->container
+                );
                 break;
             }
         }
 
         if (!$controller instanceof ControllerInterface) {
-            $controller = new ErrorController($twig, $container);
-            $controller->setError('Page ' . $parsed_url .  ' not found', 404);
+            $controller = new ErrorController(
+                $dependencies->twig,
+                $dependencies->container
+            );
+            $controller->setError('Page ' . $parsedUrl .  ' not found');
         }
 
-        $controller->display($slugList);
+        $controller->display($slugList ?? []);
     }
 }

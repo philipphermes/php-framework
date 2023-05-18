@@ -8,7 +8,7 @@ use App\Core\ContainerInterface;
 class DependencyProvider implements DependencyProviderInterface
 {
     public function __construct(
-        private ContainerInterface     $container,
+        private readonly ContainerInterface $container,
     )
     {
     }
