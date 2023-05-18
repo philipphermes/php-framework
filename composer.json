@@ -18,7 +18,6 @@
     },
     "require": {
         "php": "^8.2",
-        "smarty/smarty": "^4.3",
         "vlucas/phpdotenv": "^5.5",
         "twig/twig": "^3.6"
     }
