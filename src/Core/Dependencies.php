@@ -9,7 +9,6 @@ use App\Provider\DependencyProvider;
 
 class Dependencies implements DependenciesInterface
 {
-    public \Smarty $smarty;
     public TwigInterface $twig;
     public ContainerInterface $container;
     public ControllerProviderInterface $controllerProvider;
@@ -20,7 +19,6 @@ class Dependencies implements DependenciesInterface
             session_start();
         }
 
-        $this->smarty = new \Smarty();
         $this->twig = new Twig();
         $this->container = new Container();
         $this->controllerProvider = new ControllerProvider();

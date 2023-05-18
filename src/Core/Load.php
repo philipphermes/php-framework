@@ -34,7 +34,7 @@ class Load
 
         foreach ($vars as $key => $var) {
             if (str_contains($key, 'PATH')) {
-                $_ENV[$key] = __DIR__ . '/../../' . $var;
+                $_ENV[$key] = __DIR__ . '/../..' . $var;
             }
         }
     }
