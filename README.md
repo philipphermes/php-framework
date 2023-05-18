@@ -8,6 +8,7 @@ git@github.com:philipphermes/php-framework.git
 Install Dependency's
 ```
 composer install
+npm install
 ```
 
 ## Controllers:
@@ -78,6 +79,17 @@ class DependencyProvider implements DependencyProviderInterface
 * Add templates to the /templates folder
 * file extension: .html.twig
 * Twig documentation: https://twig.symfony.com/doc/3.x/
+* use the output.css if you want to use tailwind
+
+Run this to update your output.css automatically
+```
+npx tailwindcss -i ./assets/input.css -o ./assets/output.css --watch
+```
+
+Clear twig cache
+```
+rm -rf twig
+```
 
 ## Env
 
