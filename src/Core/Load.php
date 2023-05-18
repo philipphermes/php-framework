@@ -18,9 +18,9 @@ class Load
         try {
             $controllerLoader = new ControllerLoader();
             $controllerLoader->load($dependencies);
-        } catch (\Error $error) {
+        } catch (\Error | \Exception $e) {
             $responseController = new ErrorController($dependencies->twig, $dependencies->container);
-            $responseController->setError($error->getMessage(), 505);
+            $responseController->setError($e->getMessage(), 500);
             $responseController->display([]);
         }
 

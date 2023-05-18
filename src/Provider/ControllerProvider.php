@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Provider;
 
+use App\Component\Error\Communication\Controller\ErrorController;
 use App\Component\Home\Communication\Controller\HomeController;
 
 class ControllerProvider implements ControllerProviderInterface
@@ -14,6 +15,7 @@ class ControllerProvider implements ControllerProviderInterface
     {
         return [
             HomeController::class,
+            ErrorController::class,
         ];
     }
 }

@@ -7,8 +7,8 @@ use App\Core\AbstractController;
 
 class ErrorController extends AbstractController
 {
-    private string $error;
-    private int $response;
+    private string $error = 'Page not found!';
+    private int $response = 404;
 
     public function setError(string $error, int $response = 404): void
     {

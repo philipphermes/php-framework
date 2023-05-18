@@ -17,3 +17,6 @@ RewriteRule ^(.*)$ index.php [QSA]
 # Block access to files
 # F 403
 RewriteRule \.(env)$ - [F,L]
+
+#Error Page
+ErrorDocument 404 /error
