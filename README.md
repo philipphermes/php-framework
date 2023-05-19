@@ -3,7 +3,7 @@
 ## Installation:
 Clone repository
 ```
-git@github.com:philipphermes/php-framework.git
+git clone git@github.com:philipphermes/php-framework.git
 ```
 Install Dependency's
 ```
