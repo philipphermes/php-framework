@@ -85,10 +85,9 @@ Run this to update your output.css automatically
 ```
 npx tailwindcss -i ./assets/style/input.css -o ./assets/style/output.css --watch
 ```
-
-Clear twig cache
-```
-rm -rf twig
+To Clear the Twig cache automatically you have to set the env var DEV to true
+```dotenv
+DEV=true
 ```
 
 ## Env

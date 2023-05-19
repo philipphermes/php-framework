@@ -12,6 +12,10 @@ class Load
     {
         $this->loadEnvVars();
 
+        if ($_ENV['DEV'] === true || $_ENV['DEV'] === 'true') {
+            $this->rmdirRecursive($_ENV['TWIG_CACHE_PATH']);
+        }
+
         $dependencies = new Dependencies();
         $dependencies->create();
 
@@ -37,5 +41,14 @@ class Load
                 $_ENV[$key] = __DIR__ . '/../..' . $var;
             }
         }
+    }
+
+    private function rmdirRecursive($dir): void {
+        foreach(scandir($dir) as $file) {
+            if ('.' === $file || '..' === $file) continue;
+            if (is_dir("$dir/$file")) $this->rmdirRecursive("$dir/$file");
+            else unlink("$dir/$file");
+        }
+        rmdir($dir);
     }
 }
