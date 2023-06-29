@@ -1,10 +1,6 @@
 # PHP Framework
 
 ## Installation:
-Clone repository
-```
-git clone git@github.com:philipphermes/php-framework.git
-```
 Install Dependency's
 ```
 composer install
